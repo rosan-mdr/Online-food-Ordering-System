@@ -1,0 +1,78 @@
+﻿@model IEnumerable<OnlineFoodOrdering.Models.Cart>
+
+@{
+    ViewBag.Title = "Cart";
+    decimal Total = 0;
+}
+
+<h2>Welcome to your Cart</h2>
+@Html.ActionLink("Go back to shopping", "Index", "Home")
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.Product.Id })
+            </td>
+        </tr>
+        Total += item.Price*item.Quantity;
+    }
+
+    <tfoot>
+        <tr>
+            <td>Total:</td>
+            <td>@Total</td>
+            <td>@using (Html.BeginForm("CheckOut", "Cart"))
+            {
+               <input type="submit" value="Checkout" name="CheckOut" class="btn btn-success"/>
+            }</td>
+        </tr>
+    </tfoot>
+
+</table>
+
+    <section id="recommendation" class="container">
+        <h3 class="text-center">Recommednation</h3>
+        @foreach (var item in ViewBag.Recommendation)
+        {
+
+                <div class="col-md-6 col-sm-6">
+                    <h4>
+
+                        @item.Name ........................... <span>$ @item.Price</span>
+                    </h4>
+                    @using (Html.BeginForm("AddToCart", "Cart"))
+                    {
+                        <input type="hidden" name="ProductId" value="@item.Id" />
+                                <input type="hidden" name="Price" value="@item.Price" />
+                                <input class="btn btn-primary" type="submit" value="Add To Cart" />
+                                <input type="hidden" name="Quantity" value="1" />
+                    }
+
+
+                </div>
+            
+        }
+    </section>

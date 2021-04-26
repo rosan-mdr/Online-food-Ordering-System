@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Gallery";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+ <!-- home section -->
+<section id="home" class="parallax-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <h1>Zentro RESTAURANT</h1>
+                <h2>CLEAN &amp; HEALTHY</h2>
+                <a href="#menu" class="smoothScroll btn btn-default">Order Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- gallery section -->
+<section id="gallery" class="parallax-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8 col-sm-12 text-center">
+                <h1 class="heading">Food Gallery</h1>
+                <hr>
+            </div>
+            <div class="col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="0.3s">
+                <a href=@Url.Content("/Content/images/momo.jpg") data-lightbox-gallery="zenda-gallery"><img src=@Url.Content("/Content/images/momo.jpg") alt="gallery img"></a>
+                <div>
+                    <h3>Chicken MoMo</h3>
+                </div>
+                <a href=@Url.Content("/Content/images/chowmein.jpg") data-lightbox-gallery="zenda-gallery"><img src=@Url.Content("/Content/images/chowmein.jpg") alt="gallery img"></a>
+                <div>
+                    <h3>Chicken Chowmien</h3>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="0.6s">
+                <a href=@Url.Content("/Content/images/frenchfries.jpg") data-lightbox-gallery="zenda-gallery"><img src=@Url.Content("/Content/images/frenchfries.jpg") alt="gallery img"></a>
+                <div>
+                    <h3>French Fries</h3>
+                </div>
+                <a href=@Url.Content("/Content/images/lassi.jpg") data-lightbox-gallery="zenda-gallery"><img src=@Url.Content("/Content/images/lassi.jpg") alt="gallery img"></a>
+                <div>
+                    <h3>Lassi</h3>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="0.9s">
+                <a href=@Url.Content("/Content/images/meatballs.jpg") data-lightbox-gallery="zenda-gallery"><img src=@Url.Content("/Content/images/meatballs.jpg") alt="gallery img"></a>
+                <div>
+                    <h3>Chicken MeatBalls</h3>
+                </div>
+                <a href=@Url.Content("/Content/images/burger.jpg") data-lightbox-gallery="zenda-gallery"><img src=@Url.Content("/Content/images/burger.jpg") alt="gallery img"></a>
+                <div>
+                    <h3>Chicken Burger</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--Menu Section-->
+<section id="menu" class="parallax-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 col-sm-12 text-center">
+                    <h1 class="heading">Our Menu</h1>
+                    <hr>
+                </div>
+                @foreach (var item in Model)
+                {
+                    
+                    <div class="col-md-6 col-sm-6">
+                        <h4>
+
+                            @item.Name ........................... <span>$ @item.Price</span>
+                        </h4>
+                            @using (Html.BeginForm("AddToCart", "Cart")) {
+                                <input type="hidden" name="ProductId" value="@item.Id"/>
+                                <input type="hidden" name="Price" value="@item.Price" />
+                                <input class="btn btn-primary" type="submit" value="Add To Cart"/>
+                                <input type="hidden" name="Quantity" value="1" />
+                            }
+                        
+
+                    </div>
+                }
+
+
+            </div>
+        </div>
+</section>
+
+
