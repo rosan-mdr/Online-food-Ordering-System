@@ -88,6 +88,7 @@ namespace OnlineFoodOrdering.Controllers
                             ,user.FirstName,Url.Action("ResetPassword","Login",new { Email = email},Request.Url.Scheme));
                 mm.Body = mail;
                 mm.IsBodyHtml = true;
+
                 mm.Subject = "Reset Password";
                 SmtpClient smtp = new SmtpClient();
                 smtp.Port = 25;
